@@ -1,9 +1,12 @@
-/********************************************************/
-/*                 Flutter example                      */ 
-/********************************************************/
-/* Following code shows the example of using Bloc pattern
-*  in Flutter to seperate Business logic and update 
-*  User Interface. 
+/*************************************************************/
+/*                      Flutter example                      */ 
+/*************************************************************/
+/* Following code shows the example of using Bloc pattern     *
+*  in Flutter to seperate Business logic and update           *
+*  User Interface.                                            *
+*                                                             *
+*  This project shows the basic usage of Bloc including       *
+*  BlocProvider,BlocBuilder and BlocListener's implementation * 
 */
 
 import 'package:flutter/material.dart';
