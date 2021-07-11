@@ -4,12 +4,14 @@ part of 'counter_cubit.dart';
 
 class CounterState {
   
-  /*Declare variable storage state info*/
-  int counterValue;
+  /*Declare variable to storage state information*/
+  int  counterValue;
+  bool Incremented;
   
   /* Initialization constructor*/
   CounterState({
     @required this.counterValue,
+    this.Incremented,
   });
   
 }

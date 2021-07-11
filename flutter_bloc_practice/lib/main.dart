@@ -1,5 +1,5 @@
 /*************************************************************/
-/*                      Flutter example                      */ 
+/*                      Flutter example                      */
 /*************************************************************/
 /* Following code shows the example of using Bloc pattern     *
 *  in Flutter to seperate Business logic and update           *
@@ -53,51 +53,66 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            /* When receiving new State from the stream  
-            *  Bloc Builder rebuild the widget then update User Interface
-            */
-            BlocBuilder<CounterCubit, CounterState>(
-              builder: (context, state) {
-                return Text(
-                  state.counterValue.toString(),
-                  style: Theme.of(context).textTheme.headline4,
-                );
-              },
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                FloatingActionButton(
-                    onPressed: () {
-                      /*Push new State to the stream when state change */
-                      BlocProvider.of<CounterCubit>(context).decrement();
-                      /*also works with 
-                      context.bloc<CounterCubit>().decrement()
-                      */
-                    },
-                    tooltip: "Decrement",
-                    child: Icon(Icons.remove)),
-
-                FloatingActionButton(
-                    onPressed: () {
-                      /*Push new State to the stream when state change */
-                      BlocProvider.of<CounterCubit>(context).increment();
-                      /*also works with 
-                      context.bloc<CounterCubit>().increment()
-                      */
-                    },
-                    tooltip: 'Increment',
-                    child: Icon(Icons.add))
-              ],
+      body: BlocListener<CounterCubit, CounterState>(
+        listener: (context, state) {
+          if (state.Incremented){
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text('incremented'),
+              duration:Duration(milliseconds:300),
             )
-          ],
+          );}
+          if (!state.Incremented){
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text('decremented'),
+              duration:Duration(milliseconds:300),
+            )
+          );}
+        },
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'You have pushed the button this many times:',
+              ),
+              /* When receiving new State from the stream  
+                  *  Bloc Builder rebuild the widget then update User Interface
+                  */
+              BlocBuilder<CounterCubit, CounterState>(
+                builder: (context, state) {
+                  return Text(
+                    state.counterValue.toString(),
+                    style: Theme.of(context).textTheme.headline4,
+                  );
+                },
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  FloatingActionButton(
+                      onPressed: () {
+                        /*Push new State to the stream when state change */
+                        BlocProvider.of<CounterCubit>(context).decrement();
+                        /*also works with 
+                            context.bloc<CounterCubit>().decrement()
+                            */
+                      },
+                      tooltip: "Decrement",
+                      child: Icon(Icons.remove)),
+                  FloatingActionButton(
+                      onPressed: () {
+                        /*Push new State to the stream when state change */
+                        BlocProvider.of<CounterCubit>(context).increment();
+                        /*also works with 
+                            context.bloc<CounterCubit>().increment()
+                            */
+                      },
+                      tooltip: 'Increment',
+                      child: Icon(Icons.add))
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
